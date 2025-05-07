@@ -1,8 +1,107 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F3D9E5; /* Pale Pink */
+            color: #4A3267; /* Purple */
+            margin: 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: #4A3267; /* Purple */
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+            .hero-section h1 {
+                font-size: 3.5rem;
+                font-weight: bold;
+            }
+
+            .hero-section p {
+                font-size: 1.3rem;
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.6;
+            }
+
+        /* Section for intro and links */
+        .intro-section {
+            background-color: #F7B9D4; /* Light Pink */
+            color: #4A3267; /* Purple */
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+            .intro-section h2 {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .intro-section p {
+                font-size: 1.2rem;
+                margin-bottom: 30px;
+            }
+
+            .intro-section a {
+                text-decoration: none;
+                background-color: #DE638A; /* Pink */
+                color: white;
+                padding: 12px 30px;
+                font-weight: bold;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+                .intro-section a:hover {
+                    background-color: #4A3267; /* Purple */
+                    color: white;
+                }
+
+        /* Footer */
+        footer {
+            background-color: #C6BADE; /* Lavender */
+            color: #4A3267; /* Purple */
+            padding: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>Welcome to TicketsApp</h1>
+        <p>Your gateway to discovering and purchasing tickets for the best events around! Explore new experiences and unforgettable moments.</p>
+    </div>
+
+    <!-- Intro Section -->
+    <div class="intro-section">
+        <h2>Get Started Today!</h2>
+        <p>Browse through our extensive range of events and categories. With TicketsApp, your next adventure is just a click away!</p>
+        <a href="/Events">Browse Events</a>
+        <a href="/Categories" class="ms-3">Browse Categories</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 TicketsApp - All rights reserved</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

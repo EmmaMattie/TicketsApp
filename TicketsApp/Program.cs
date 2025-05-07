@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using TicketsApp.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<TicketsAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TicketsAppContext") ?? throw new InvalidOperationException("Connection string 'TicketsAppContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
