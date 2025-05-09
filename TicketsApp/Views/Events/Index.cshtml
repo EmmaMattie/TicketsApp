@@ -73,6 +73,13 @@
             .top-actions h1 {
                 margin: 0;
             }
+
+        .event-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -85,6 +92,7 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Title</th>
                     <th>Date</th>
                     <th>Location</th>
@@ -97,6 +105,16 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.ImageFilename))
+                            {
+                                <img src="~/event-images/@item.ImageFilename" alt="Event Image" class="event-image" />
+                            }
+                            else
+                            {
+                                <span>No Image</span>
+                            }
+                        </td>
                         <td>@item.Title</td>
                         <td>@item.EventDateTime.ToString("g")</td>
                         <td>@item.Location</td>

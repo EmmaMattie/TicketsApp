@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using TicketsApp.Data;
 using TicketsApp.Models;
 
@@ -49,52 +50,55 @@ namespace TicketsApp.Controllers
         }
 
         // GET: Events/Create
-        // Controller's Create Method
         public IActionResult Create()
         {
-            // These are the predefined categories you're expecting
-            var categories = new List<Category>
-    {
-        new Category { CategoryId = 1, Title = "Concert" },
-        new Category { CategoryId = 2, Title = "Festival" },
-        new Category { CategoryId = 3, Title = "Esports Event" },
-        new Category { CategoryId = 4, Title = "Sports Event" },
-        new Category { CategoryId = 5, Title = "Art Show" }
-    };
-
-            ViewBag.CategoryId = new SelectList(categories, "CategoryId", "Title");
+            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name");
             return View();
         }
-
-
 
         // POST: Events/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event @event, IFormFile image)
+        public async Task<IActionResult> Create(Event @event, IFormFile ImageFile)
         {
             if (ModelState.IsValid)
             {
-                if (image != null)
+                // Handle the image upload
+                if (ImageFile != null && ImageFile.Length > 0)
                 {
-                    var fileName = Guid.NewGuid() + Path.GetExtension(image.FileName);
-                    var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "event-images", fileName);
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "event-images");
 
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    // Create folder if it doesn't exist
+                    if (!Directory.Exists(uploadsFolder))
                     {
-                        await image.CopyToAsync(stream);
+                        Directory.CreateDirectory(uploadsFolder);
                     }
 
-                    @event.ImageFilename = fileName;
+                    // Generate a unique file name
+                    var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    // Save the file to the server
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(stream);
+                    }
+
+                    // Set the filename for the event
+                    @event.ImageFilename = uniqueFileName;
                 }
 
+                // Set creation date
+                @event.CreateDate = DateTime.Now;
+
+                // Save the event to the database
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            // If there is a problem with the model state, reload categories
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
+            // Re-populate the Category dropdown in case of validation failure
+            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
             return View(@event);
         }
 
@@ -112,14 +116,14 @@ namespace TicketsApp.Controllers
                 return NotFound();
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
             return View(@event);
         }
 
         // POST: Events/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Event @event)
+        public async Task<IActionResult> Edit(int id, Event @event, IFormFile ImageFile)
         {
             if (id != @event.EventId)
             {
@@ -130,6 +134,31 @@ namespace TicketsApp.Controllers
             {
                 try
                 {
+                    // Handle the image upload if a new image is uploaded
+                    if (ImageFile != null && ImageFile.Length > 0)
+                    {
+                        var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "event-images");
+
+                        // Create folder if it doesn't exist
+                        if (!Directory.Exists(uploadsFolder))
+                        {
+                            Directory.CreateDirectory(uploadsFolder);
+                        }
+
+                        // Generate a unique file name
+                        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        // Save the file to the server
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await ImageFile.CopyToAsync(stream);
+                        }
+
+                        // Set the filename for the event
+                        @event.ImageFilename = uniqueFileName;
+                    }
+
                     _context.Update(@event);
                     await _context.SaveChangesAsync();
                 }
@@ -147,7 +176,7 @@ namespace TicketsApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
             return View(@event);
         }
 
