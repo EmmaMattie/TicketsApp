@@ -74,11 +74,11 @@
             <dt class="col-sm-4">Category</dt>
             <dd class="col-sm-8">@Model.Category?.Title</dd>
 
-            @if (!string.IsNullOrEmpty(Model.ImageFilename))
+            @if (!string.IsNullOrEmpty(Model.ImageFilePath))
             {
                 <dt class="col-sm-4">Image</dt>
                 <dd class="col-sm-8">
-                    <img src="~/images/@Model.ImageFilename" class="img-fluid rounded" alt="Event Image" />
+                    <img src="~/event-images/@Model.ImageFilePath" class="img-fluid rounded" alt="Event Image" />
                 </dd>
             }
         </dl>

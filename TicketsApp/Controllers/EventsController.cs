@@ -52,19 +52,19 @@ namespace TicketsApp.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name");
+            ViewBag.CategoryId = new SelectList(_context.Category.AsNoTracking(), nameof(Category.CategoryId), nameof(Category.Title));
             return View();
         }
 
         // POST: Events/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event @event, IFormFile ImageFile)
+        public async Task<IActionResult> Create(Event @event)
         {
             if (ModelState.IsValid)
             {
                 // Handle the image upload
-                if (ImageFile != null && ImageFile.Length > 0)
+                if (@event.ImageFile != null && @event.ImageFile.Length > 0)
                 {
                     var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "event-images");
 
@@ -75,21 +75,21 @@ namespace TicketsApp.Controllers
                     }
 
                     // Generate a unique file name
-                    var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                    var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(@event.ImageFile.FileName);
                     var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                     // Save the file to the server
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await ImageFile.CopyToAsync(stream);
+                        await @event.ImageFile.CopyToAsync(stream);
                     }
 
                     // Set the filename for the event
-                    @event.ImageFilename = uniqueFileName;
+                    @event.ImageFilePath = uniqueFileName;
                 }
 
                 // Set creation date
-                @event.CreateDate = DateTime.Now;
+                @event.CreateDate = DateTime.UtcNow;
 
                 // Save the event to the database
                 _context.Add(@event);
@@ -98,7 +98,7 @@ namespace TicketsApp.Controllers
             }
 
             // Re-populate the Category dropdown in case of validation failure
-            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Category.AsNoTracking(), nameof(Category.CategoryId), nameof(Category.Title), @event.CategoryId);
             return View(@event);
         }
 
@@ -116,14 +116,14 @@ namespace TicketsApp.Controllers
                 return NotFound();
             }
 
-            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Category.AsNoTracking(), nameof(Category.CategoryId), nameof(Category.Title), @event.CategoryId);
             return View(@event);
         }
 
         // POST: Events/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Event @event, IFormFile ImageFile)
+        public async Task<IActionResult> Edit(int id, Event @event)
         {
             if (id != @event.EventId)
             {
@@ -135,7 +135,7 @@ namespace TicketsApp.Controllers
                 try
                 {
                     // Handle the image upload if a new image is uploaded
-                    if (ImageFile != null && ImageFile.Length > 0)
+                    if (@event.ImageFile != null && @event.ImageFile.Length > 0)
                     {
                         var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "event-images");
 
@@ -146,17 +146,17 @@ namespace TicketsApp.Controllers
                         }
 
                         // Generate a unique file name
-                        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(@event.ImageFile.FileName);
                         var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                         // Save the file to the server
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
-                            await ImageFile.CopyToAsync(stream);
+                            await @event.ImageFile.CopyToAsync(stream);
                         }
 
                         // Set the filename for the event
-                        @event.ImageFilename = uniqueFileName;
+                        @event.ImageFilePath = uniqueFileName;
                     }
 
                     _context.Update(@event);
@@ -176,7 +176,7 @@ namespace TicketsApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.CategoryId = new SelectList(_context.Category, "CategoryId", "Name", @event.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Category.AsNoTracking(), nameof(Category.CategoryId), nameof(Category.Title), @event.CategoryId);
             return View(@event);
         }
 
