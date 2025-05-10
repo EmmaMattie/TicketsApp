@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace TicketsApp.Migrations
 {
     /// <inheritdoc />
@@ -32,10 +34,10 @@ namespace TicketsApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageFilename = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImageFilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -48,6 +50,18 @@ namespace TicketsApp.Migrations
                         principalTable: "Category",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Category",
+                columns: new[] { "CategoryId", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Art Show" },
+                    { 2, "Concert" },
+                    { 3, "Esports Event" },
+                    { 4, "Sports Event" },
+                    { 5, "Festival" }
                 });
 
             migrationBuilder.CreateIndex(

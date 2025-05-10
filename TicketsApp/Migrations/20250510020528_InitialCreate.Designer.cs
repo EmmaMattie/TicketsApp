@@ -12,7 +12,7 @@ using TicketsApp.Data;
 namespace TicketsApp.Migrations
 {
     [DbContext(typeof(TicketsAppContext))]
-    [Migration("20250506232643_InitialCreate")]
+    [Migration("20250510020528_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -40,6 +40,33 @@ namespace TicketsApp.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            Title = "Art Show"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            Title = "Concert"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            Title = "Esports Event"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            Title = "Sports Event"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            Title = "Festival"
+                        });
                 });
 
             modelBuilder.Entity("TicketsApp.Models.Event", b =>
@@ -63,7 +90,7 @@ namespace TicketsApp.Migrations
                     b.Property<DateTime>("EventDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImageFilename")
+                    b.Property<string>("ImageFilePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

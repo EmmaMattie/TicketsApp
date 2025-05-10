@@ -106,9 +106,9 @@
                 {
                     <tr>
                         <td>
-                            @if (!string.IsNullOrEmpty(item.ImageFilename))
+                            @if (!string.IsNullOrEmpty(item.ImageFilePath))
                             {
-                                <img src="~/event-images/@item.ImageFilename" alt="Event Image" class="event-image" />
+                                <img src="~/event-images/@item.ImageFilePath" alt="Event Image" class="event-image" />
                             }
                             else
                             {

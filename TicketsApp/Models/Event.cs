@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketsApp.Models
@@ -22,7 +23,8 @@ namespace TicketsApp.Models
         [Required]
         public decimal Price { get; set; }
 
-        public string ImageFilename { get; set; }
+        [ValidateNever]
+        public string ImageFilePath{ get; set; }
 
         public DateTime CreateDate { get; set; }
 
@@ -30,9 +32,11 @@ namespace TicketsApp.Models
         public int CategoryId { get; set; }
 
         // Navigation property to Category
+        [ValidateNever]
         public Category Category { get; set; }
 
         [NotMapped]
+        [ValidateNever]
         public IFormFile ImageFile { get; set; }
     }
 }
