@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Events";
+      <!-- Title for the page -->
 }
 
 <!DOCTYPE html>
@@ -12,9 +13,10 @@
     <title>@ViewData["Title"]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
+        /* Custom styling for the page */
         body {
-            background-color: #F3D9E5; /* Pale Pink */
-            color: #4A3267; /* Purple */
+            background-color: #F4F7F6; /* Light background */
+            color: #1A4C7B; /* Navy Blue */
             font-family: 'Arial', sans-serif;
         }
 
@@ -22,16 +24,17 @@
             text-align: center;
             margin-top: 40px;
             font-weight: bold;
+            color: #1A4C7B; /* Navy Blue */
         }
 
         .table {
-            background-color: #F7B9D4; /* Light Pink */
+            background-color: #4ECDC4; /* Turquoise */
             border-radius: 10px;
             overflow: hidden;
         }
 
         th {
-            background-color: #4A3267; /* Purple */
+            background-color: #FF6F61; /* Coral */
             color: white;
         }
 
@@ -44,17 +47,17 @@
         }
 
         .btn-primary {
-            background-color: #DE638A; /* Pink */
+            background-color: #FF6F61; /* Coral */
             border: none;
             font-weight: bold;
         }
 
             .btn-primary:hover {
-                background-color: #4A3267;
+                background-color: #E53A3A; /* Darker Coral */
             }
 
         .btn-link {
-            color: #4A3267;
+            color: #FF6F61; /* Coral */
         }
 
         .container {
@@ -80,6 +83,28 @@
             object-fit: cover;
             border-radius: 5px;
         }
+
+        /* Red Delete Button */
+        .btn-danger {
+            background-color: #FF4C4C; /* Red */
+            color: white;
+            font-weight: bold;
+        }
+
+            .btn-danger:hover {
+                background-color: #E33E3E; /* Darker Red */
+            }
+
+        /* Navy Blue for Details Button */
+        .btn-details {
+            background-color: #1A4C7B; /* Navy Blue */
+            color: white;
+            font-weight: bold;
+        }
+
+            .btn-details:hover {
+                background-color: #0C2D57; /* Darker Navy Blue */
+            }
     </style>
 </head>
 <body>
@@ -106,9 +131,9 @@
                 {
                     <tr>
                         <td>
-                            @if (!string.IsNullOrEmpty(item.ImageFilePath))
+                            @if (!string.IsNullOrEmpty(item.ImageFileName))
                             {
-                                <img src="~/event-images/@item.ImageFilePath" alt="Event Image" class="event-image" />
+                                <img src="~/event-images/@item.ImageFileName" alt="Event Image" class="event-image" />
                             }
                             else
                             {
@@ -122,7 +147,7 @@
                         <td>@item.Category?.Title</td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.EventId" class="btn btn-sm btn-primary">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-sm btn-secondary">Details</a>
+                            <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-sm btn-details">Details</a>
                             <a asp-action="Delete" asp-route-id="@item.EventId" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>

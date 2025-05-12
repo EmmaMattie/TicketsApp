@@ -12,14 +12,14 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #F3D9E5; /* Pale Pink */
-            color: #4A3267; /* Purple */
+            background-color: #F4F7F6; /* Light background */
+            color: #1A4C7B; /* Navy Blue */
             margin: 0;
         }
 
         /* Hero Section */
         .hero-section {
-            background-color: #4A3267; /* Purple */
+            background-color: #FF6F61; /* Coral */
             color: white;
             text-align: center;
             padding: 100px 20px;
@@ -39,8 +39,8 @@
 
         /* Section for intro and links */
         .intro-section {
-            background-color: #F7B9D4; /* Light Pink */
-            color: #4A3267; /* Purple */
+            background-color: #4ECDC4; /* Turquoise */
+            color: #1A4C7B; /* Navy Blue */
             padding: 60px 20px;
             text-align: center;
         }
@@ -58,27 +58,55 @@
 
             .intro-section a {
                 text-decoration: none;
-                background-color: #DE638A; /* Pink */
+                background-color: #FF6F61; /* Coral */
                 color: white;
                 padding: 12px 30px;
                 font-weight: bold;
                 border-radius: 5px;
                 transition: all 0.3s ease;
+                margin: 5px;
             }
 
                 .intro-section a:hover {
-                    background-color: #4A3267; /* Purple */
+                    background-color: #E53A3A; /* Darker Coral */
                     color: white;
                 }
 
         /* Footer */
         footer {
-            background-color: #C6BADE; /* Lavender */
-            color: #4A3267; /* Purple */
+            background-color: #4ECDC4; /* Turquoise */
+            color: #1A4C7B; /* Navy Blue */
             padding: 20px;
             text-align: center;
             font-size: 1rem;
         }
+
+        /* Additional Styling for Buttons and Links */
+        .btn-primary {
+            background-color: #FF6F61; /* Coral */
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #E53A3A; /* Darker Coral */
+            }
+
+        .btn-secondary {
+            background-color: #1A4C7B; /* Navy Blue */
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-secondary:hover {
+                background-color: #0C2D57; /* Darker Navy */
+            }
     </style>
 </head>
 <body>
@@ -93,8 +121,8 @@
     <div class="intro-section">
         <h2>Get Started Today!</h2>
         <p>Browse through our extensive range of events and categories. With TicketsApp, your next adventure is just a click away!</p>
-        <a href="/Events">Browse Events</a>
-        <a href="/Categories" class="ms-3">Browse Categories</a>
+        <a href="/Events" class="btn-primary">Browse Events</a>
+        <a href="/Categories" class="btn-secondary">Browse Categories</a>
     </div>
 
     <!-- Footer -->

@@ -1,33 +1,156 @@
 ﻿@model TicketsApp.Models.Category
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create"; // Sets the title of the page to "Create"
 }
 
-<h1>Create</h1>
+@section Styles {
+    <style>
+        /* Page background and font settings */
+        body {
+            background-color: #E6F9F7; /* Light Teal */
+            color: #FF6F61; /* Coral */
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+        }
 
-<h4>Category</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        /* Title styling */
+        h1 {
+            text-align: center;
+            color: #FF6F61; /* Coral */
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        /* Subtitle styling */
+        h4 {
+            color: #008080; /* Dark Teal */
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        /* Container to center the form and apply styles */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #A1D8D0; /* Teal */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form group for input fields */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+            /* Label styling */
+            .form-group label {
+                color: #004D4D; /* Deep Teal */
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+        /* Input field styling */
+        .form-control {
+            background-color: #E0F7F4; /* Light Aqua */
+            border: 1px solid #FF6F61; /* Coral */
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            color: #333;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+            /* Focused input field styling */
+            .form-control:focus {
+                border-color: #FF6F61; /* Coral */
+                box-shadow: 0 0 6px rgba(255, 111, 97, 0.5); /* Coral Glow */
+            }
+
+        /* Submit button styling */
+        .btn-primary {
+            background-color: #FF6F61; /* Coral */
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+            /* Hover effect for submit button */
+            .btn-primary:hover {
+                background-color: #E53A3A; /* Darker Coral */
+            }
+
+        /* Validation error message styling */
+        .text-danger {
+            color: #E53A3A; /* Darker Coral for validation */
+            font-size: 14px;
+        }
+
+        /* Link styling for "Back to List" */
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #004D4D; /* Deep Teal */
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+            /* Hover effect for "Back to List" link */
+            .back-link:hover {
+                color: #FF6F61; /* Coral */
+            }
+    </style>
+}
+
+<h1>Create</h1> <!-- Main title for the page -->
+
+<h4>Category</h4> <!-- Subtitle for the category creation form -->
+<hr /> <!-- Horizontal line -->
+
+<div class="container">
+    <!-- Main container for the form -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Form to create a new category -->
+            <form asp-action="Create">
+                <!-- Validation summary will display errors if the model validation fails -->
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Input field for the category title -->
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label> <!-- Label for the Title field -->
+                    <input asp-for="Title" class="form-control" /> <!-- Input field for category title -->
+                    <!-- Display validation error message for the Title field -->
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <!-- Submit button to create the category -->
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" /> <!-- Submit button -->
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Link to navigate back to the list of categories -->
+    <div>
+        <a asp-action="Index" class="back-link">Back to List</a> <!-- Back to list link -->
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <!-- Includes client-side validation scripts -->
+    }
 }

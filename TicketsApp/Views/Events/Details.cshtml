@@ -2,42 +2,52 @@
 
 @{
     ViewData["Title"] = "Event Details";
+      <!-- Title for the page -->
+    Layout = "~/Views/Shared/_Layout.cshtml";
+      <!-- Layout for consistent page structure -->
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>@ViewData["Title"]</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+@section Styles {
     <style>
+        /* Custom styling */
         body {
-            background-color: #F3D9E5; /* Pale Pink */
-            color: #4A3267; /* Purple */
+            background-color: #E6F9F7; /* Light Teal */
+            color: #1A4C7B; /* Navy Blue */
             font-family: 'Arial', sans-serif;
         }
 
         .container {
             max-width: 800px;
             margin: 50px auto;
-            background-color: #F7B9D4; /* Light Pink */
+            background-color: #A1D8D0; /* Teal */
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(255, 111, 97, 0.1);
+            position: relative;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 30px;
             font-weight: bold;
+            color: #1A4C7B; /* Navy Blue */
+        }
+
+        dl {
+            font-size: 1.2rem;
         }
 
         dt {
             font-weight: bold;
+            color: #1A4C7B; /* Navy Blue */
+        }
+
+        dd {
+            margin-bottom: 15px;
         }
 
         .btn-custom {
-            background-color: #DE638A;
+            background-color: #FF6F61; /* Coral */
             color: white;
             font-weight: bold;
             border: none;
@@ -46,47 +56,67 @@
         }
 
             .btn-custom:hover {
-                background-color: #4A3267;
-                color: white;
+                background-color: #E53A3A; /* Darker Coral */
             }
+
+        .btn-back {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #1A4C7B; /* Navy Blue */
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+            .btn-back:hover {
+                background-color: #0C2D57; /* Darker Navy Blue */
+            }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Event Details</h1>
+}
 
-        <dl class="row">
-            <dt class="col-sm-4">Title</dt>
-            <dd class="col-sm-8">@Model.Title</dd>
-
-            <dt class="col-sm-4">Description</dt>
-            <dd class="col-sm-8">@Model.Description</dd>
-
-            <dt class="col-sm-4">Date & Time</dt>
-            <dd class="col-sm-8">@Model.EventDateTime.ToString("f")</dd>
-
-            <dt class="col-sm-4">Location</dt>
-            <dd class="col-sm-8">@Model.Location</dd>
-
-            <dt class="col-sm-4">Price</dt>
-            <dd class="col-sm-8">$@Model.Price</dd>
-
-            <dt class="col-sm-4">Category</dt>
-            <dd class="col-sm-8">@Model.Category?.Title</dd>
-
-            @if (!string.IsNullOrEmpty(Model.ImageFilePath))
-            {
-                <dt class="col-sm-4">Image</dt>
-                <dd class="col-sm-8">
-                    <img src="~/event-images/@Model.ImageFilePath" class="img-fluid rounded" alt="Event Image" />
-                </dd>
-            }
-        </dl>
-
-        <div class="mt-4">
-            <a asp-action="Edit" asp-route-id="@Model.EventId" class="btn btn-custom me-2">Edit</a>
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-        </div>
+<!-- Page Content -->
+<div class="container">
+    <div class="mt-3" style="position: relative;">
+        <!-- Back Button -->
+        <a asp-controller="Events" asp-action="Index" class="btn btn-back">Back to List</a>
     </div>
-</body>
-</html>
+
+    <h1>Event Details</h1>
+
+    <!-- Event Information -->
+    <dl class="row">
+        <dt class="col-sm-4">Title</dt>
+        <dd class="col-sm-8">@Model.Title</dd>
+
+        <dt class="col-sm-4">Description</dt>
+        <dd class="col-sm-8">@Model.Description</dd>
+
+        <dt class="col-sm-4">Date & Time</dt>
+        <dd class="col-sm-8">@Model.EventDateTime.ToString("f")</dd>
+
+        <dt class="col-sm-4">Location</dt>
+        <dd class="col-sm-8">@Model.Location</dd>
+
+        <dt class="col-sm-4">Price</dt>
+        <dd class="col-sm-8">$@Model.Price</dd>
+
+        <dt class="col-sm-4">Category</dt>
+        <dd class="col-sm-8">@Model.Category?.Title</dd>
+
+        <!-- Display image if it exists -->
+        @if (!string.IsNullOrEmpty(Model.ImageFileName))
+        {
+            <dt class="col-sm-4">Image</dt>
+            <dd class="col-sm-8">
+                <img src="~/event-images/@Model.ImageFileName" class="img-fluid rounded" alt="Event Image" />
+            </dd>
+        }
+    </dl>
+</div>

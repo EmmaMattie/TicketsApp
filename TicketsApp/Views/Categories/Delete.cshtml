@@ -4,24 +4,117 @@
     ViewData["Title"] = "Delete";
 }
 
+@section Styles {
+    <style>
+        /* Basic styling for the body of the page */
+        body {
+            background-color: #E6F9F7; /* Light Teal */
+            color: #FF6F61; /* Coral */
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+        }
+
+        /* Header and sub-header styling */
+        h1, h3 {
+            text-align: center;
+            color: #FF6F61; /* Coral */
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        /* Container to wrap the content and make it look neat */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #A1D8D0; /* Teal */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.2);
+        }
+
+        /* Styling for the definition list displaying the Category details */
+        dl dt {
+            font-weight: bold;
+            color: #FF6F61; /* Coral */
+            font-size: 18px;
+        }
+
+        dl dd {
+            color: #333;
+            font-size: 18px;
+        }
+
+        /* Button styling for the Delete button */
+        .btn-danger {
+            background-color: #FF6F61; /* Coral */
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+            /* Hover effect for the Delete button */
+            .btn-danger:hover {
+                background-color: #E53A3A; /* Darker Coral */
+            }
+
+        /* Styling for the Back button */
+        .btn-back {
+            background-color: #FF6F61; /* Coral */
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+            /* Hover effect for the Back button */
+            .btn-back:hover {
+                background-color: #E53A3A; /* Darker Coral */
+            }
+    </style>
+}
+
+<!-- Main title for the Delete page -->
 <h1>Delete</h1>
 
+<!-- Subheading asking for confirmation -->
 <h3>Are you sure you want to delete this?</h3>
-<div>
+
+<div class="container">
+    <!-- Category section showing the details of the item being deleted -->
     <h4>Category</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <!-- Label displaying the name of the category -->
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <!-- Value displaying the title of the category -->
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
     </dl>
-    
+
+    <!-- Form to confirm the deletion of the category -->
     <form asp-action="Delete">
+        <!-- Hidden input holding the CategoryId to identify which category to delete -->
         <input type="hidden" asp-for="CategoryId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <!-- Button to submit the form and delete the category -->
+        <button type="submit" class="btn btn-danger">Delete</button>
     </form>
+
+    <!-- Link to go back to the list of categories -->
+    <div>
+        <a class="btn-back" asp-action="Index">Back to List</a>
+    </div>
 </div>

@@ -1,35 +1,128 @@
 ﻿@model IEnumerable<TicketsApp.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Category Index";  // Setting the page title to "Category Index"
 }
 
-<h1>Index</h1>
+@section Styles {
+    <style>
+        /* Styling for the page body */
+        body {
+            background-color: #E6F9F7; /* Light Teal */
+            color: #FF6F61; /* Coral */
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+        }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
-            </td>
-        </tr>
+        /* Header styling */
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        /* Main container styling for the category list */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #A1D8D0; /* Teal */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.2);
+        }
+
+        /* Table styling */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+            /* Styling for table headers */
+            .table th, .table td {
+                padding: 12px;
+                text-align: left;
+            }
+
+            /* Header styling within the table */
+            .table th {
+                background-color: #D1F2EF; /* Lighter Teal */
+                color: #FF6F61; /* Coral */
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            /* Row styling within the table */
+            .table td {
+                background-color: #FFFFFF;
+                font-size: 16px;
+                color: #333;
+            }
+
+            /* Link styling within the table */
+            .table a {
+                color: #FF6F61; /* Coral */
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+                /* Hover effect for the links */
+                .table a:hover {
+                    color: #E53A3A; /* Darker Coral */
+                }
+
+        /* Styling for the "Create New" button */
+        .btn-primary {
+            background-color: #FF6F61; /* Coral */
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+            /* Hover effect for the button */
+            .btn-primary:hover {
+                background-color: #E53A3A; /* Darker Coral */
+            }
+    </style>
 }
-    </tbody>
-</table>
+
+<h1>Categories</h1>
+
+<div class="container">
+    <!-- Button to navigate to the Create page -->
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+
+    <!-- Table to display the list of categories -->
+    <table class="table">
+        <thead>
+            <tr>
+                <!-- Display category title column header -->
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <!-- Display actions column header -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <!-- Display category title for each item -->
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>
+                        <!-- Links for editing, viewing details, or deleting a category -->
+                        <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

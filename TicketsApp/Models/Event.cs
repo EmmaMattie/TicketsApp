@@ -6,37 +6,37 @@ namespace TicketsApp.Models
 {
     public class Event
     {
-        public int EventId { get; set; }
+        public int EventId { get; set; }  // Primary key for the event
 
-        [Required]
-        public string Title { get; set; }
+        [Required]  // Title is a required field
+        public string Title { get; set; }  // Event's title
 
-        [Required]
-        public string Description { get; set; }
+        [Required]  // Description is a required field
+        public string Description { get; set; }  // Event's description
 
-        [Required]
-        public DateTime EventDateTime { get; set; }
+        [Required]  // EventDateTime is a required field
+        public DateTime EventDateTime { get; set; }  // Date and time of the event
 
-        [Required]
-        public string Location { get; set; }
+        [Required]  // Location is a required field
+        public string Location { get; set; }  // Event location
 
-        [Required]
-        public decimal Price { get; set; }
+        [Required]  // Price is a required field
+        public decimal Price { get; set; }  // Event ticket price
 
-        [ValidateNever]
-        public string ImageFilePath{ get; set; }
+        [ValidateNever]  // Don't validate the ImageFileName during model binding
+        public string ImageFileName { get; set; }  // File name of the event's image
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }  // Date when the event was created
 
         // Foreign Key to Category
-        public int CategoryId { get; set; }
+        public int CategoryId { get; set; }  // ID of the category for this event
 
         // Navigation property to Category
-        [ValidateNever]
-        public Category Category { get; set; }
+        [ValidateNever]  // Don't validate Category during model binding
+        public Category Category { get; set; }  // Event's associated category
 
-        [NotMapped]
-        [ValidateNever]
-        public IFormFile ImageFile { get; set; }
+        [NotMapped]  // ImageFile is not mapped to the database
+        [ValidateNever]  // Don't validate ImageFile during model binding
+        public IFormFile ImageFile { get; set; }  // Uploaded image for the event
     }
 }
