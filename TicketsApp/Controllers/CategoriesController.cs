@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TicketsApp.Data;
 using TicketsApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TicketsApp.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         // Context for accessing the database

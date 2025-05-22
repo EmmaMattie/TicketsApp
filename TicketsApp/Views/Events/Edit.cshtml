@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit Event";
-      <!-- Title for the page -->
 }
 
 <!DOCTYPE html>
@@ -13,126 +12,120 @@
     <title>@ViewData["Title"]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        /* Custom styles for the page */
         body {
-            background-color: #E6F9F7; /* Light Teal */
-            color: #FF6F61; /* Coral */
-            font-family: 'Arial', sans-serif;
+            background-color: #E8F8F5; /* pastel mint */
+            font-family: 'Segoe UI', sans-serif;
         }
 
         h1 {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 30px;
             font-weight: bold;
-        }
-
-        form {
-            background-color: #A1D8D0; /* Teal */
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(255, 111, 97, 0.2);
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        .form-control {
-            border-radius: 8px;
-        }
-
-        .btn-primary {
-            background-color: #FF6F61; /* Coral */
-            border: none;
-            font-weight: bold;
-        }
-
-            .btn-primary:hover {
-                background-color: #E53A3A; /* Darker Coral */
-            }
-
-        a {
-            color: #FF6F61; /* Coral */
-            font-weight: bold;
+            color: #1A4C7B; /* Deep pastel blue */
         }
 
         .container {
             max-width: 700px;
             margin: 0 auto;
         }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background-color: #F9C6C9; /* blush pink */
+            color: #1A4C7B;
+            border: none;
+            font-weight: bold;
+            padding: 10px 24px;
+        }
+
+            .btn-primary:hover {
+                background-color: #f4a9b3;
+            }
+
+        a {
+            color: #B39DDB; /* soft lavender */
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Edit Event</h1>
-        <hr />
 
-        <!-- Form for editing the event -->
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
-            <!-- Hidden field for EventId -->
             <input type="hidden" asp-for="EventId" />
-
-            <!-- Validation Summary -->
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <!-- Title Input -->
             <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
-            <!-- Description Input -->
             <div class="form-group mb-3">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-            <!-- Date and Time Input -->
             <div class="form-group mb-3">
                 <label asp-for="EventDateTime" class="control-label"></label>
                 <input asp-for="EventDateTime" type="datetime-local" class="form-control" />
                 <span asp-validation-for="EventDateTime" class="text-danger"></span>
             </div>
 
-            <!-- Location Input -->
             <div class="form-group mb-3">
                 <label asp-for="Location" class="control-label"></label>
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
 
-            <!-- Price Input -->
             <div class="form-group mb-3">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" type="number" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
 
-            <!-- Category Dropdown -->
-            <div class="mb-3">
+            <div class="form-group mb-3">
                 <label asp-for="CategoryId" class="form-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
 
-            <!-- Image File Input -->
             <div class="form-group mb-3">
                 <label asp-for="ImageFile" class="control-label"></label>
                 <input asp-for="ImageFile" type="file" class="form-control" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
 
-            <!-- Submit Button -->
             <div class="form-group text-center mt-4">
-                <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
         </form>
 
-        <!-- Back to List Link -->
         <div class="text-center mt-3">
-            <a asp-action="Index">Back to List</a>
+            <a asp-action="Index">← Back to List</a>
         </div>
     </div>
 

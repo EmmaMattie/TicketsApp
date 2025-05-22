@@ -2,121 +2,138 @@
 
 @{
     ViewData["Title"] = "Event Details";
-      <!-- Title for the page -->
     Layout = "~/Views/Shared/_Layout.cshtml";
-      <!-- Layout for consistent page structure -->
 }
 
 @section Styles {
     <style>
-        /* Custom styling */
         body {
-            background-color: #E6F9F7; /* Light Teal */
-            color: #1A4C7B; /* Navy Blue */
-            font-family: 'Arial', sans-serif;
+            background-color: #EAF8F7;
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #A1D8D0; /* Teal */
+        .details-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(255, 111, 97, 0.1);
-            position: relative;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .btn-back {
+            background-color: #D6EAF8;
+            color: #1A4C7B;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
         h1 {
+            color: #1A4C7B;
+            font-size: 2rem;
+            font-weight: bold;
             text-align: center;
             margin-bottom: 30px;
+        }
+
+        .section-box {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-label {
             font-weight: bold;
-            color: #1A4C7B; /* Navy Blue */
+            color: #FF6F61;
+            margin-bottom: 4px;
         }
 
-        dl {
-            font-size: 1.2rem;
+        .section-content {
+            color: #1A4C7B;
+            font-size: 1rem;
         }
 
-        dt {
-            font-weight: bold;
-            color: #1A4C7B; /* Navy Blue */
+        .section-title {
+            background-color: #FFEBF0;
+        }
+        /* Light Pink */
+        .section-description {
+            background-color: #FFE6D3;
+        }
+        /* Pastel Orange */
+        .section-datetime {
+            background-color: #FFF9D6;
+        }
+        /* Soft Yellow */
+        .section-location {
+            background-color: #DEF6E2;
+        }
+        /* Mint Green */
+        .section-price {
+            background-color: #E5D7FF;
+        }
+        /* Lavender Purple */
+        .section-category {
+            background-color: #BFE7FA;
+        }
+        /* Baby Blue */
+        .img-box {
+            text-align: center;
+            margin-top: 20px;
         }
 
-        dd {
-            margin-bottom: 15px;
-        }
-
-        .btn-custom {
-            background-color: #FF6F61; /* Coral */
-            color: white;
-            font-weight: bold;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-            .btn-custom:hover {
-                background-color: #E53A3A; /* Darker Coral */
+            .img-box img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             }
-
-        .btn-back {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #1A4C7B; /* Navy Blue */
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-        }
-
-            .btn-back:hover {
-                background-color: #0C2D57; /* Darker Navy Blue */
-            }
-
-        .img-fluid {
-            max-width: 100%;
-            height: auto;
-        }
     </style>
 }
 
-<!-- Page Content -->
-<div class="container">
-    <div class="mt-3" style="position: relative;">
-        <!-- Back Button -->
-        <a asp-controller="Events" asp-action="Index" class="btn btn-back">Back to List</a>
-    </div>
+<div class="details-wrapper">
+    <a asp-controller="Events" asp-action="Index" class="btn-back">← Back to List</a>
 
     <h1>Event Details</h1>
 
-    <!-- Event Information -->
-    <dl class="row">
-        <dt class="col-sm-4">Title</dt>
-        <dd class="col-sm-8">@Model.Title</dd>
+    <div class="section-box section-title">
+        <div class="section-label">Title</div>
+        <div class="section-content">@Model.Title</div>
+    </div>
 
-        <dt class="col-sm-4">Description</dt>
-        <dd class="col-sm-8">@Model.Description</dd>
+    <div class="section-box section-description">
+        <div class="section-label">Description</div>
+        <div class="section-content">@Model.Description</div>
+    </div>
 
-        <dt class="col-sm-4">Date & Time</dt>
-        <dd class="col-sm-8">@Model.EventDateTime.ToString("f")</dd>
+    <div class="section-box section-datetime">
+        <div class="section-label">Date & Time</div>
+        <div class="section-content">@Model.EventDateTime.ToString("f")</div>
+    </div>
 
-        <dt class="col-sm-4">Location</dt>
-        <dd class="col-sm-8">@Model.Location</dd>
+    <div class="section-box section-location">
+        <div class="section-label">Location</div>
+        <div class="section-content">@Model.Location</div>
+    </div>
 
-        <dt class="col-sm-4">Price</dt>
-        <dd class="col-sm-8">$@Model.Price</dd>
+    <div class="section-box section-price">
+        <div class="section-label">Price</div>
+        <div class="section-content">$@Model.Price</div>
+    </div>
 
-        <dt class="col-sm-4">Category</dt>
-        <dd class="col-sm-8">@Model.Category?.Title</dd>
+    <div class="section-box section-category">
+        <div class="section-label">Category</div>
+        <div class="section-content">@Model.Category?.Title</div>
+    </div>
 
-        <!-- Display image if it exists -->
-        @if (!string.IsNullOrEmpty(Model.ImageFileName))
-        {
-            <dt class="col-sm-4">Image</dt>
-            <dd class="col-sm-8">
-                <img src="~/event-images/@Model.ImageFileName" class="img-fluid rounded" alt="Event Image" />
-            </dd>
-        }
-    </dl>
+    @if (!string.IsNullOrEmpty(Model.ImageFileName))
+    {
+        <div class="img-box">
+            <img src="~/event-images/@Model.ImageFileName" alt="Event Image" />
+        </div>
+    }
 </div>

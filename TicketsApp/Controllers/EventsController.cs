@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using TicketsApp.Data;
 using TicketsApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TicketsApp.Controllers
 {
+    [Authorize]
     public class EventsController : Controller
     {
         private readonly TicketsAppContext _context; // Database context for accessing events
@@ -136,29 +138,33 @@ namespace TicketsApp.Controllers
             {
                 try
                 {
+                    // Get the original event from the DB
+                    var existingEvent = await _context.Event.AsNoTracking().FirstOrDefaultAsync(e => e.EventId == id);
+
                     // Handle the image upload if a new image is uploaded
                     if (@event.ImageFile != null && @event.ImageFile.Length > 0)
                     {
                         var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "event-images");
 
-                        // Create folder if it doesn't exist
                         if (!Directory.Exists(uploadsFolder))
                         {
                             Directory.CreateDirectory(uploadsFolder);
                         }
 
-                        // Generate a unique file name
                         var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(@event.ImageFile.FileName);
                         var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                        // Save the file to the server
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             await @event.ImageFile.CopyToAsync(stream);
                         }
 
-                        // Set the filename for the event
                         @event.ImageFileName = uniqueFileName;
+                    }
+                    else
+                    {
+                        // If no new image is uploaded, preserve the original filename
+                        @event.ImageFileName = existingEvent?.ImageFileName ?? "";
                     }
 
                     _context.Update(@event); // Update the event in the database

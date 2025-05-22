@@ -31,23 +31,46 @@
                 <!-- Collapsible menu items -->
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <!-- Menu Item for Home -->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <!-- Menu Item for Events -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
-                        </li>
-                        <!-- Menu Item for Categories -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
-                        </li>
-                        <!-- Menu Item for Privacy Policy -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Events" asp-action="Index">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Categories" asp-action="Index">Categories</a>
+                            </li>
+                        }
                     </ul>
+
+
+                    <!-- Right-aligned login or logout -->
+                    <div class="d-flex align-items-center" style="gap: 10px;">
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <form method="get" action="/Home/Logout">
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-controller="Home" asp-action="Login" class="d-flex" style="gap: 10px;">
+                                <input type="text" name="username" class="form-control" placeholder="Username" required />
+                                <input type="password" name="password" class="form-control" placeholder="Password" required />
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </form>
+
+                            <div style="min-width: 180px;" class="ms-2 d-flex align-items-center">
+                                @if (ViewBag.Error != null)
+                                {
+                                    <span class="text-danger">@ViewBag.Error</span>
+                                }
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>

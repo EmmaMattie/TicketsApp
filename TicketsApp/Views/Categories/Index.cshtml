@@ -8,8 +8,8 @@
     <style>
         /* Styling for the page body */
         body {
-            background-color: #E6F9F7; /* Light Teal */
-            color: #FF6F61; /* Coral */
+            background-color: #FDF6EC; /* Light Pastel Peach */
+            color: #444;
             font-family: 'Arial', sans-serif;
             padding: 20px;
         }
@@ -20,16 +20,17 @@
             font-weight: bold;
             margin-bottom: 40px;
             font-size: 32px;
+            color: #4B91F1; /* Soft Blue */
         }
 
         /* Main container styling for the category list */
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background-color: #A1D8D0; /* Teal */
+            background-color: #FFE7EC; /* Very Light Pink */
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.2);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
         }
 
         /* Table styling */
@@ -47,8 +48,8 @@
 
             /* Header styling within the table */
             .table th {
-                background-color: #D1F2EF; /* Lighter Teal */
-                color: #FF6F61; /* Coral */
+                background-color: #C7E9F1; /* Soft Blue */
+                color: #1A4C7B;
                 font-weight: bold;
                 font-size: 18px;
             }
@@ -60,22 +61,10 @@
                 color: #333;
             }
 
-            /* Link styling within the table */
-            .table a {
-                color: #FF6F61; /* Coral */
-                font-weight: bold;
-                text-decoration: none;
-            }
-
-                /* Hover effect for the links */
-                .table a:hover {
-                    color: #E53A3A; /* Darker Coral */
-                }
-
         /* Styling for the "Create New" button */
         .btn-primary {
-            background-color: #FF6F61; /* Coral */
-            color: white;
+            background-color: #F7CAC9; /* Pastel Rose */
+            color: #1A4C7B;
             font-weight: bold;
             border: none;
             padding: 12px 24px;
@@ -86,7 +75,29 @@
 
             /* Hover effect for the button */
             .btn-primary:hover {
-                background-color: #E53A3A; /* Darker Coral */
+                background-color: #E6B8B7;
+            }
+
+        /* Action link styles */
+        .action-edit {
+            color: #FFA07A; /* Light Salmon */
+        }
+
+        .action-details {
+            color: #B39EB5; /* Soft Lavender */
+        }
+
+        .action-delete {
+            color: #87CEFA; /* Light Blue */
+        }
+
+        .table a {
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+            .table a:hover {
+                text-decoration: underline;
             }
     </style>
 }
@@ -117,9 +128,9 @@
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
                     <td>
                         <!-- Links for editing, viewing details, or deleting a category -->
-                        <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.CategoryId" class="action-edit">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CategoryId" class="action-details">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CategoryId" class="action-delete">Delete</a>
                     </td>
                 </tr>
             }

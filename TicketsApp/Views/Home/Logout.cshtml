@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Logout";
+}
+
+<style>
+    /* Logout section styling */
+    .logout-section {
+        background-color: #FFF3E6; /* Light Peach */
+        color: #1A4C7B; /* Navy Blue */
+        padding: 100px 20px;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+        .logout-section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #1A4C7B; /* Navy Blue */
+        }
+
+        /* Button base styles */
+        .logout-section .btn {
+            font-weight: bold;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            border: none;
+            transition: 0.3s ease;
+        }
+
+        /* Pastel Red for logout */
+        .logout-section .btn-danger {
+            background-color: #F7B2B7; /* Soft Pink/Red */
+            color: #1A1A1A;
+        }
+
+            .logout-section .btn-danger:hover {
+                background-color: #F28888;
+            }
+
+        /* Pastel Blue for cancel */
+        .logout-section .btn-secondary {
+            background-color: #BFD8FF; /* Soft Blue */
+            color: #1A4C7B;
+        }
+
+            .logout-section .btn-secondary:hover {
+                background-color: #A3C7FF;
+            }
+
+        /* Button group layout */
+        .logout-section .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+</style>
+
+<div class="logout-section">
+    <h2>Are you sure you want to logout?</h2>
+    <form method="post" asp-action="ConfirmLogout" class="btn-group mt-4">
+        <button type="submit" class="btn btn-danger">Yes, Logout</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
