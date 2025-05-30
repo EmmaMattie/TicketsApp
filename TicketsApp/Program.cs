@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add database
 builder.Services.AddDbContext<TicketsAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TicketsAppContext")
         ?? throw new InvalidOperationException("Connection string 'TicketsAppContext' not found.")));
 
+// Add MVC + Session + Authentication
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddSession(); // ✅ Add this line
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
 {
     options.LoginPath = "/Home/Unauthorized";
@@ -19,12 +21,14 @@ builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", opt
 
 var app = builder.Build();
 
+// Configure request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
+// Apply migrations on startup
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -34,7 +38,10 @@ using (var scope = app.Services.CreateScope())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
+app.UseSession(); 
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStatusCodePagesWithReExecute("/Home/Unauthorized");

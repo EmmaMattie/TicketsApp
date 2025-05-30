@@ -1,0 +1,83 @@
+﻿@model IEnumerable<TicketsApp.Models.Event>
+
+@{
+    ViewData["Title"] = "Browse Events";
+}
+
+<style>
+    body {
+        background-color: #fef6ff;
+    }
+
+    .browse-header {
+        background-color: #a0c4ff;
+        padding: 24px;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+        .browse-header h2 {
+            color: #1d3557;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+    .event-card {
+        background-color: #fff0f6;
+        border: 2px solid #ffc8dd;
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .event-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #3c096c;
+        margin-bottom: 10px;
+    }
+
+    .event-info {
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: #212529;
+    }
+
+    .event-label {
+        font-weight: 600;
+        color: #7b2cbf;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="browse-header">
+        <h2>🎟️ Available Events</h2>
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="event-card">
+            <div class="event-title">@item.Title</div>
+            <p class="event-info">@item.Description</p>
+            <p class="event-info"><span class="event-label">Date:</span> @item.EventDateTime.ToString("f")</p>
+            <p class="event-info"><span class="event-label">Location:</span> @item.Location</p>
+            <p class="event-info"><span class="event-label">Category:</span> @item.Category?.Title</p>
+            <p class="event-info"><span class="event-label">Price:</span> @item.Price.ToString("C")</p>
+
+            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="row g-2 mt-3 align-items-center">
+                <input type="hidden" name="eventId" value="@item.EventId" />
+                <input type="hidden" name="eventName" value="@item.Title" />
+                <input type="hidden" name="price" value="@item.Price" />
+                <div class="col-auto">
+                    <input type="number" name="quantity" class="form-control" value="1" min="1" required />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                </div>
+            </form>
+        </div>
+    }
+</div>
