@@ -27,11 +27,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Browse" asp-action="Index">Browse</a>
                         </li>
-
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
@@ -41,21 +39,22 @@
                                 <a class="nav-link text-dark" asp-controller="Categories" asp-action="Index">Categories</a>
                             </li>
                         }
-
                         <li class="nav-item ms-auto">
                             <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">🛒 Cart</a>
                         </li>
+                        <li class="nav-item" style="margin-left: 10px;">
+                            @if (User.Identity?.IsAuthenticated ?? false)
+                            {
+                                <form method="get" action="/Home/Logout">
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </form>
+                            }
+                        </li>
                     </ul>
 
-                    <div class="d-flex align-items-center" style="gap: 10px;">
-                        @if (User.Identity?.IsAuthenticated ?? false)
-                        {
-                            <form method="get" action="/Home/Logout">
-                                <button type="submit" class="btn btn-danger">Logout</button>
-                            </form>
-                        }
-                        else
-                        {
+                    @if (!(User.Identity?.IsAuthenticated ?? false))
+                    {
+                        <div class="d-flex align-items-center" style="gap: 10px;">
                             <form method="post" asp-controller="Home" asp-action="Login" class="d-flex" style="gap: 10px;">
                                 <input type="text" name="username" class="form-control" placeholder="Username" required />
                                 <input type="password" name="password" class="form-control" placeholder="Password" required />
@@ -68,8 +67,8 @@
                                     <span class="text-danger">@ViewBag.Error</span>
                                 }
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>

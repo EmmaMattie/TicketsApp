@@ -20,7 +20,7 @@ namespace TicketsApp.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Unauthorized()
+        public new IActionResult Unauthorized()
         {
             return View();
         }

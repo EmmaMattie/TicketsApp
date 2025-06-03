@@ -73,7 +73,7 @@
     <div class="container">
         <h1>Edit Event</h1>
 
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <form class="row g-3" asp-action="Edit" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="EventId" />
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 

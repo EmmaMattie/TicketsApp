@@ -6,50 +6,60 @@
 
 <style>
     body {
-        background-color: #fef6ff;
+        background-color: white;
     }
 
     .browse-header {
-        background-color: #a0c4ff;
-        padding: 24px;
+        background-color: #bcdffb;
+        padding: 20px;
         text-align: center;
         border-radius: 12px;
         margin-bottom: 30px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
         .browse-header h2 {
-            color: #1d3557;
+            color: #333;
             font-weight: bold;
             font-size: 2rem;
         }
 
     .event-card {
-        background-color: #fff0f6;
-        border: 2px solid #ffc8dd;
-        border-radius: 14px;
-        padding: 24px;
-        margin-bottom: 24px;
-        box-shadow: 2px 2px 10px rgba(0,0,0,0.04);
+        background-color: #ffe6f0;
+        border: 1px solid #f5c2d6;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
     }
 
     .event-title {
-        font-size: 1.6rem;
-        font-weight: 700;
+        font-size: 1.4rem;
+        font-weight: bold;
         color: #3c096c;
         margin-bottom: 10px;
     }
 
     .event-info {
-        margin-bottom: 10px;
         font-size: 1rem;
-        color: #212529;
+        margin-bottom: 6px;
     }
 
     .event-label {
         font-weight: 600;
-        color: #7b2cbf;
+        color: #8a00a2;
     }
+
+    .btn-cart {
+        background-color: #6a5acd; /* Soft purple */
+        border: none;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 5px;
+    }
+
+        .btn-cart:hover {
+            background-color: #4b3ca4;
+        }
 </style>
 
 <div class="container mt-4">
@@ -75,7 +85,7 @@
                     <input type="number" name="quantity" class="form-control" value="1" min="1" required />
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                    <button type="submit" class="btn btn-cart">Add to Cart</button>
                 </div>
             </form>
         </div>
